@@ -26,10 +26,10 @@ jobs:
           docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} registry.cn-shenzhen.aliyuncs.com
 
           # 使用Dockerfile构建镜像
-          docker build . --file Dockerfile --tag {{ env.ALIYUN_CR_HOST }}/{{ env.ALIYUN_CR_NAMESPACE}}/{{ env.PRO_NAME }}:{{ env.PRO_VERSION }}
+          docker build . --file Dockerfile --tag ${{ env.ALIYUN_CR_HOST }}/${{ env.ALIYUN_CR_NAMESPACE }}/${{ env.PRO_NAME }}:${{ env.PRO_VERSION }}
 
           # 推送镜像到镜像仓库
-          docker push {{ env.ALIYUN_CR_HOST }}/{{ env.ALIYUN_CR_NAMESPACE}}/{{ env.PRO_NAME }}:{{ env.PRO_VERSION }}
+          docker push ${{ env.ALIYUN_CR_HOST }}/${{ env.ALIYUN_CR_NAMESPACE }}/${{ env.PRO_NAME }}:${{ env.PRO_VERSION }}
 
       - name: multiple command
         uses: appleboy/ssh-action@master
@@ -40,5 +40,5 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             docker rm -f alinesno-student-demo-v2
-            docker pull {{ env.ALIYUN_CR_HOST }}/{{ env.ALIYUN_CR_NAMESPACE}}/{{ env.PRO_NAME }}:{{ env.PRO_VERSION }}
-            docker run --name alinesno-student-demo-v2 --restart="always" -d {{ env.ALIYUN_CR_HOST }}/{{ env.ALIYUN_CR_NAMESPACE}}/{{ env.PRO_NAME }}:{{ env.PRO_VERSION }}
+            docker pull ${{ env.ALIYUN_CR_HOST }}/${{ env.ALIYUN_CR_NAMESPACE }}/${{ env.PRO_NAME }}:${{ env.PRO_VERSION }}
+            docker run --name alinesno-student-demo-v2 --restart="always" -d ${{ env.ALIYUN_CR_HOST }}/${{ env.ALIYUN_CR_NAMESPACE }}/${{ env.PRO_NAME }}:${{ env.PRO_VERSION }}
