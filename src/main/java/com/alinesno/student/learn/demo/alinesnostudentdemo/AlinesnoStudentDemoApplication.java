@@ -11,7 +11,7 @@ public class AlinesnoStudentDemoApplication {
 
 	@GetMapping("/hello")
 	public String hello(String name){
-		return "hello , " + name ; 
+		return "hello , hello  , " + name ; 
 	}
 
 	public static void main(String[] args) {
